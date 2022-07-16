@@ -148,7 +148,8 @@ class google_translator:
                 decoded_line = line.decode('utf-8')
                 if "MkEWBc" in decoded_line:
                     try:
-                        response = decoded_line
+                        # response = (decoded_line + ']')
+                        response = str(decoded_line)
                         response = json.loads(response)
                         response = list(response)
                         response = json.loads(response[0][2])
@@ -185,6 +186,7 @@ class google_translator:
                                 pronounce_tgt = (response_[1][0][0][1])
                                 return [sentences, pronounce_src, pronounce_tgt]
                     except Exception as e:
+                        print(response)
                         raise e
             r.raise_for_status()
         except requests.exceptions.ConnectTimeout as e:
@@ -230,7 +232,7 @@ class google_translator:
                     # regex_str = r"\[\[\"wrb.fr\",\"MkEWBc\",\"\[\[(.*).*?,\[\[\["
                     try:
                         # data_got = re.search(regex_str,decoded_line).group(1)
-                        response = (decoded_line)
+                        response = (decoded_line + ']')
                         response = json.loads(response)
                         response = list(response)
                         response = json.loads(response[0][2])
